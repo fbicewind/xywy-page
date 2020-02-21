@@ -1,0 +1,69 @@
+.music-small {
+    position: fixed;
+    top: 50px;
+    right: 10px;
+    font-size: 14px;
+    border: 1px solid #e7e7e7;
+}
+
+.music-small.music-small-spe{
+    border: none;
+}
+
+.music-small i:hover {
+    cursor: pointer;
+    color: #4cc25c;
+}
+
+.music-small-header {
+    padding-bottom: 3px;
+}
+
+.music-small-header .anticon-customer-service{
+    margin-right: 5px;
+}
+
+.music-small-header .anticon-close-circle, .music-small-header .anticon-arrows-alt, .music-small-header .anticon-vertical-align-top {
+    width: 25px;
+}
+
+.music-small-header .anticon-close-circle:hover {
+    color: red;
+}
+
+.music-small-info {
+    width: 160px;
+    height: 40px;
+}
+
+.music-small-info>.img-div {
+    background: #4cc25c;
+    float: left;
+}
+
+.music-small-info img {
+    width: 40px;
+    height: 40px;
+}
+
+.music-small-info>.info-div {
+    float: left;
+    font-size: 12px;
+}
+
+.music-small-info>.info-div>div {
+    padding-left: 3px;
+    height: 20px;
+    width: 110px;
+    overflow: hidden;
+}
+
+.music-small-operation {
+    width: 160px;
+}
+
+.music-small-operation i {
+    width: 30px;
+    font-size: 16px;
+    height: 20px;
+}

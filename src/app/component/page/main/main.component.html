@@ -1,1 +1,73 @@
-<p>main works!</p>
+<div class="container main-body">
+    <div nz-col nzSm="17">
+        <ul class="list-unstyled">
+            <li *ngFor="let blog of blogs" class="blog-block">
+                <h4>
+                    <span class="blog-type">{{blog.type}}</span>
+                    <span class="blog-type-arrow"></span>&nbsp;
+                    <span class="blog-title" routerLink="/blog">{{blog.title}}</span>
+                </h4>
+                <div class="blog-content">
+                    <div nz-col nzSm="6">
+                        <img src="{{blog.thumbImg}}">
+                    </div>
+                    <div nz-col nzSm="18" class="blog-content-thumb" routerLink="/blog">
+                        <p>{{blog.thumbContent}}</p>
+                    </div>
+                </div>
+                <div class="blog-info">
+                    <div>更新于<span>{{blog.createTime}}</span></div>
+                    <div>浏览量<span>{{blog.readCount}}</span></div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div nz-col nzSm="1"></div>
+    <div nz-col nzSm="6" class="main-right">
+        <ul class="list-unstyled">
+            <li class="blog-block">
+                <h5>站点信息</h5>
+                <div>
+                    <ul class="list-unstyled">
+                        <li>站点名称：闲言悟语</li>
+                        <li>建站时间：2020-02-21</li>
+                        <li>站点版本：v1.0.0</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="blog-block">
+                <h5>个人名片</h5>
+                <div>
+                    <ul class="list-unstyled">
+                        <li>一只立志于全栈的后端码农</li>
+                        <li>天蝎男 腹黑</li>
+                        <li>90后 不秃头</li>
+                        <!-- <li><img src="assets/minewx.png"></li> -->
+                    </ul>
+                </div>
+            </li>
+            <li class="blog-block">
+                <h5>博客标签</h5>
+                <div>
+                    <ul class="list-unstyled blog-tags-ul">
+                        <li>TEST</li>
+                        <li>个人博客</li>
+                        <li>Java</li>
+                        <li>TEST</li>
+                        <li>个人博客</li>
+                        <li>Java</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="blog-block">
+                <h5>友情链接</h5>
+                <div>
+                    <ul class="list-unstyled">
+                        <li><a href="https://www.baidu.com/">百度</a></li>
+                        <li><a href="https://angular.cn/docs">Angular</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

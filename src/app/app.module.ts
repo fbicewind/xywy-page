@@ -15,6 +15,7 @@ import { MainComponent } from './component/page/main/main.component';
 import { AlbumComponent } from './component/page/album/album.component';
 import { MineComponent } from './component/page/mine/mine.component';
 import { BlogComponent } from './component/page/blog/blog.component';
+import { MusicComponent } from './component/music/music.component';
 
 registerLocaleData(zh);
 
@@ -26,7 +27,8 @@ registerLocaleData(zh);
     MainComponent,
     AlbumComponent,
     MineComponent,
-    BlogComponent
+    BlogComponent,
+    MusicComponent
   ],
   imports: [
     BrowserModule,

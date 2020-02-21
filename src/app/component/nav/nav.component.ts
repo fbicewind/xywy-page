@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { PlatformLocation } from '@angular/common';
 
 @Component({
   selector: 'app-nav',
@@ -8,10 +9,31 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class NavComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute) { }
+  checkNav = 1;
+
+  constructor(private route: ActivatedRoute, private location: PlatformLocation) { }
 
   ngOnInit() {
-    console.log(this.route);
+    let uri = '';
+    for (const i in this, this.location) {
+      if (i === 'location') {
+        uri = this.location[i].href;
+        break;
+      }
+    }
+    if (uri.indexOf('blog') > -1) {
+      this.checkNav = 2;
+    } else if (uri.indexOf('album') > -1) {
+      this.checkNav = 3;
+    } else if (uri.indexOf('aboutMe') > -1) {
+      this.checkNav = 4;
+    } else {
+      this.checkNav = 1;
+    }
+  }
+
+  activeNav(i) {
+    this.checkNav = i;
   }
 
 }

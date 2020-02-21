@@ -1,0 +1,28 @@
+<div class="music-small music-small-spe" *ngIf="!musicSmallShow" (mouseenter)="musicEnter()" >
+    <div class="music-small-header">
+        <i nz-icon nzType="customer-service" nzTheme="outline"></i>
+    </div>
+</div>
+<div class="music-small" (mouseleave)="musicLeave()" *ngIf="musicSmallShow">
+    <div class="music-small-header">
+        <i nz-icon nzType="close-circle" nzTheme="outline" title="关闭"></i>
+        <i nz-icon nzType="arrows-alt" nzTheme="outline" title="最大化"></i>
+        <i nz-icon nzType="vertical-align-top" nzTheme="outline" title="固定"></i>
+    </div>
+    <div class="music-small-info"> 
+        <div class="img-div">
+            <img src="">
+        </div>
+        <div class="info-div">
+            <div>相思 - 毛阿敏</div>
+            <div>01:01 / 03:01</div>
+        </div>
+    </div>
+    <div class="music-small-operation">
+        <i nz-icon nzType="step-backward" nzTheme="outline"></i>
+        <i nz-icon nzType="caret-right" nzTheme="outline"></i>
+        <i nz-icon nzType="step-forward" nzTheme="outline"></i>
+        <i nz-icon nzType="sound" nzTheme="outline"></i>
+        <i nz-icon nzType="retweet" nzTheme="outline"></i>
+    </div>
+</div>
