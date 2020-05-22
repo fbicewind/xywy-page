@@ -1,15 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MainComponent } from './component/page/main/main.component';
-import { BlogComponent } from './component/page/blog/blog.component';
-import { AlbumComponent } from './component/page/album/album.component';
-import { MineComponent } from './component/page/mine/mine.component';
 
-const routes: Routes = [{ path: '', redirectTo: '/main', pathMatch: 'full' },
-{ path: 'main', component: MainComponent },
-{ path: 'blog', component: BlogComponent },
-{ path: 'album', component: AlbumComponent },
-{ path: 'aboutMe', component: MineComponent }];
+const routes: Routes = [{ path: '', component: MainComponent },
+{ path: 'index', component: MainComponent },
+{ path: 'life', loadChildren: './component/page/blog/blog.module#BlogModule' },
+{ path: 'technique', loadChildren: './component/page/blog/blog.module#BlogModule' },
+{ path: 'me', loadChildren: './component/page/mine/mine.module#MineModule' },
+{ path: '**', component: MainComponent }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

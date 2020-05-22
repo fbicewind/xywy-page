@@ -21,11 +21,11 @@ export class NavComponent implements OnInit {
         break;
       }
     }
-    if (uri.indexOf('blog') > -1) {
+    if (uri.indexOf('life') > -1) {
       this.checkNav = 2;
-    } else if (uri.indexOf('album') > -1) {
+    } else if (uri.indexOf('technique') > -1) {
       this.checkNav = 3;
-    } else if (uri.indexOf('aboutMe') > -1) {
+    } else if (uri.indexOf('me') > -1) {
       this.checkNav = 4;
     } else {
       this.checkNav = 1;

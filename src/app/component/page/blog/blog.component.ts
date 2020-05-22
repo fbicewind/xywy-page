@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-blog',
@@ -57,9 +58,11 @@ export class BlogComponent implements OnInit {
     createTime: "2020-01-10 10:16",
     readCount: 101
   }]
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.parent.url.subscribe(url => console.log(url[0].path));
+
   }
 
 }
