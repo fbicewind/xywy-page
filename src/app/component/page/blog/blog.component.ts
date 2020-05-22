@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { BlogService } from '../../../services/blog.service';
 
 @Component({
   selector: 'app-blog',
@@ -8,61 +9,64 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class BlogComponent implements OnInit {
 
-  blogs=[{
-    thumbImg: "https://cuiqingcai.com/wp-content/themes/Yusi/timthumb.php?src=https://qiniu.cuiqingcai.com/wp-content/uploads/2019/12/touann-gatouillat-vergos-CwnFmGfI-p4-unsplash.jpg&h=123&w=200&q=90&zc=1&ct=1",
-    title: "Test it",
-    thumbContent: "this is a simple test for version 0.0.1",
-    type: "TEST",
-    createTime: "2020-01-10 10:15",
-    readCount: 100
-  },{
-    thumbImg: "https://cuiqingcai.com/wp-content/themes/Yusi/timthumb.php?src=https://qiniu.cuiqingcai.com/wp-content/uploads/2019/12/touann-gatouillat-vergos-CwnFmGfI-p4-unsplash.jpg&h=123&w=200&q=90&zc=1&ct=1",
-    title: "Test it2",
-    thumbContent: "this is a simple test2 for version 0.0.1",
-    type: "TEST",
-    createTime: "2020-01-10 10:16",
-    readCount: 101
-  },{
-    thumbImg: "https://cuiqingcai.com/wp-content/themes/Yusi/timthumb.php?src=https://qiniu.cuiqingcai.com/wp-content/uploads/2019/12/touann-gatouillat-vergos-CwnFmGfI-p4-unsplash.jpg&h=123&w=200&q=90&zc=1&ct=1",
-    title: "Test it3",
-    thumbContent: "this is a simple test2 for version 0.0.1",
-    type: "TEST",
-    createTime: "2020-01-10 10:16",
-    readCount: 101
-  },{
-    thumbImg: "https://cuiqingcai.com/wp-content/themes/Yusi/timthumb.php?src=https://qiniu.cuiqingcai.com/wp-content/uploads/2019/12/touann-gatouillat-vergos-CwnFmGfI-p4-unsplash.jpg&h=123&w=200&q=90&zc=1&ct=1",
-    title: "Test it4",
-    thumbContent: "this is a simple test2 for version 0.0.1",
-    type: "TEST",
-    createTime: "2020-01-10 10:16",
-    readCount: 101
-  },{
-    thumbImg: "https://cuiqingcai.com/wp-content/themes/Yusi/timthumb.php?src=https://qiniu.cuiqingcai.com/wp-content/uploads/2019/12/touann-gatouillat-vergos-CwnFmGfI-p4-unsplash.jpg&h=123&w=200&q=90&zc=1&ct=1",
-    title: "Test it4",
-    thumbContent: "this is a simple test2 for version 0.0.1",
-    type: "TEST",
-    createTime: "2020-01-10 10:16",
-    readCount: 101
-  },{
-    thumbImg: "https://cuiqingcai.com/wp-content/themes/Yusi/timthumb.php?src=https://qiniu.cuiqingcai.com/wp-content/uploads/2019/12/touann-gatouillat-vergos-CwnFmGfI-p4-unsplash.jpg&h=123&w=200&q=90&zc=1&ct=1",
-    title: "Test it4",
-    thumbContent: "this is a simple test2 for version 0.0.1",
-    type: "TEST",
-    createTime: "2020-01-10 10:16",
-    readCount: 101
-  },{
-    thumbImg: "https://cuiqingcai.com/wp-content/themes/Yusi/timthumb.php?src=https://qiniu.cuiqingcai.com/wp-content/uploads/2019/12/touann-gatouillat-vergos-CwnFmGfI-p4-unsplash.jpg&h=123&w=200&q=90&zc=1&ct=1",
-    title: "Test it4",
-    thumbContent: "this is a simple test2 for version 0.0.1",
-    type: "TEST",
-    createTime: "2020-01-10 10:16",
-    readCount: 101
-  }]
-  constructor(private route: ActivatedRoute) { }
+  type = null;
+  tagId: number = 0;
+  pageData = {
+    pageNum: 1,
+    pageSize: 2,
+    total: 0,
+    blogs: []
+  };
+  infos: {
+    tags?: Array<{}> | null;
+    recommendBlogs?: Array<{}> | null;
+    readBlogs?: Array<{}> | null;
+    lastBlogs?: Array<{}> | null;
+  } = {};
+  blogs = [];
+
+  constructor(private route: ActivatedRoute,
+    private blogService: BlogService) { }
 
   ngOnInit() {
-    this.route.parent.url.subscribe(url => console.log(url[0].path));
+    this.route.parent.url.subscribe(url => this.type = url[0].path);
+    this.blogService.getRightInfo().subscribe(res => {
+      console.log(res);
+      this.infos = res.data;
+    });
+    this.route.queryParams.subscribe((params) => {
+      if (typeof params.tagId === 'undefined')
+        this.tagId = 0;
+      else
+        this.tagId = this.fmtTagId(params.tagId);
+      this.loadPageData(this.pageData.pageNum, this.pageData.pageSize);
+    });
+  }
 
+  fmtTagId(tagId): number {
+    try {
+      return parseInt(tagId);
+    } catch (error) {
+      return 0;
+    }
+  }
+
+  loadPageData(pageNum: number, pageSize: number): void {
+    this.blogService.getBlogsByType(this.type, this.tagId, pageNum, pageSize).subscribe(res => {
+      console.log(res);
+      this.pageData.pageNum = res.data.number + 1;
+      this.pageData.pageSize = res.data.size;
+      this.pageData.total = res.data.totalElements;
+      this.pageData.blogs = res.data.content;
+    });
+  }
+
+  changePageSize(pageSize): void {
+    this.loadPageData(this.pageData.pageNum, pageSize);
+  }
+
+  changePageIndex(pageNum): void {
+    this.loadPageData(pageNum, this.pageData.pageSize);
   }
 
 }

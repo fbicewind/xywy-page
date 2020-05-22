@@ -3,20 +3,20 @@
         <ul class="list-unstyled">
             <li *ngFor="let blog of blogs" class="blog-block">
                 <h4>
-                    <span class="blog-type">{{blog.type}}</span>
+                    <span class="blog-type">{{blog.blogTag}}</span>
                     <span class="blog-type-arrow"></span>&nbsp;
                     <span class="blog-title" routerLink="/blog">{{blog.title}}</span>
                 </h4>
                 <div class="blog-content">
                     <div nz-col nzSm="6">
-                        <img src="{{blog.thumbImg}}">
+                        <img src="{{blog.thumb}}">
                     </div>
                     <div nz-col nzSm="18" class="blog-content-thumb" routerLink="/blog">
                         <p>{{blog.thumbContent}}</p>
                     </div>
                 </div>
                 <div class="blog-info">
-                    <div>更新于<span>{{blog.createTime}}</span></div>
+                    <div>更新于<span>{{blog.modifyTime | date:'yyyy-MM-dd HH:mm:ss'}}</span></div>
                     <div>浏览量<span>{{blog.readCount}}</span></div>
                 </div>
             </li>
@@ -29,22 +29,17 @@
                 <h5>博客标签</h5>
                 <div>
                     <ul class="list-unstyled blog-tags-ul">
-                        <li>TEST</li>
-                        <li>个人博客</li>
-                        <li>Java</li>
-                        <li>TEST</li>
-                        <li>个人博客</li>
-                        <li>Java</li>
+                        <li *ngFor="let item of infos.tags" routerLink="/{{item.blogType}}" [queryParams]="{tagId: item.id}">{{item.tagName}}</li>
                     </ul>
                 </div>
             </li>
             <li class="blog-block">
                 <h5>站点信息</h5>
                 <div>
-                    <ul class="list-unstyled">
-                        <li>站点名称：闲言悟语</li>
-                        <li>建站时间：2020-02-21</li>
-                        <li>站点版本：v1.0.0</li>
+                    <ul class="list-unstyled" *ngIf="infos.webInfo">
+                        <li>站点名称：{{infos.webInfo.webName}}</li>
+                        <li>建站时间：{{infos.webInfo.buildDate}}</li>
+                        <li>站点版本：{{infos.webInfo.version}}</li>
                     </ul>
                 </div>
             </li>
@@ -52,9 +47,7 @@
                 <h5>个人名片</h5>
                 <div>
                     <ul class="list-unstyled">
-                        <li>一只立志于全栈的后端码农</li>
-                        <li>天蝎男 腹黑</li>
-                        <li>90后 不秃头</li>
+                        <li *ngFor="let item of infos.personalCard">{{item.label}}</li>
                         <!-- <li><img src="assets/minewx.png"></li> -->
                     </ul>
                 </div>
@@ -63,8 +56,7 @@
                 <h5>友情链接</h5>
                 <div>
                     <ul class="list-unstyled">
-                        <li><a href="https://www.baidu.com/">百度</a></li>
-                        <li><a href="https://angular.cn/docs">Angular</a></li>
+                        <li *ngFor="let item of infos.friendlyLinks"><a href="{{item.link}}">{{item.title}}</a></li>
                     </ul>
                 </div>
             </li>

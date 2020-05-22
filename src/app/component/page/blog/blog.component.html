@@ -1,27 +1,29 @@
 <div class="container main-body">
     <div nz-col nzSm="17">
         <ul class="list-unstyled">
-            <li *ngFor="let blog of blogs" class="blog-block">
+            <li *ngFor="let blog of pageData.blogs" class="blog-block">
                 <h4>
-                    <span class="blog-type">{{blog.type}}</span>
+                    <span class="blog-type">{{blog.blogTag}}</span>
                     <span class="blog-type-arrow"></span>&nbsp;
                     <span class="blog-title" routerLink="/blog">{{blog.title}}</span>
                 </h4>
                 <div class="blog-content">
                     <div nz-col nzSm="6">
-                        <img src="{{blog.thumbImg}}">
+                        <img src="{{blog.thumb}}">
                     </div>
                     <div nz-col nzSm="18" class="blog-content-thumb" routerLink="/blog">
                         <p>{{blog.thumbContent}}</p>
                     </div>
                 </div>
                 <div class="blog-info">
-                    <div>更新于<span>{{blog.createTime}}</span></div>
+                    <div>更新于<span>{{blog.modifyTime | date:'yyyy-MM-dd HH:mm:ss'}}</span></div>
                     <div>浏览量<span>{{blog.readCount}}</span></div>
                 </div>
             </li>
         </ul>
-        <nz-pagination class="nz-pagination" [(nzPageIndex)]="current" [nzTotal]="50" nzShowSizeChanger nzShowQuickJumper>
+        <nz-pagination class="nz-pagination" nzShowSizeChanger nzShowQuickJumper [(nzPageIndex)]="pageData.pageNum"
+            [nzTotal]="pageData.total" [nzPageSize]="pageData.pageSize" [nzPageSizeOptions]="[2,4,6,8,10]"
+            (nzPageSizeChange)="changePageSize($event)" (nzPageIndexChange)="changePageIndex($event)">
         </nz-pagination>
     </div>
     <div nz-col nzSm="1"></div>
@@ -31,12 +33,8 @@
                 <h5>博客标签</h5>
                 <div>
                     <ul class="list-unstyled blog-tags-ul">
-                        <li>TEST</li>
-                        <li>个人博客</li>
-                        <li>Java</li>
-                        <li>TEST</li>
-                        <li>个人博客</li>
-                        <li>Java</li>
+                        <li *ngFor="let item of infos.tags" routerLink="/{{item.blogType}}"
+                            [queryParams]="{tagId: item.id}">{{item.tagName}}</li>
                     </ul>
                 </div>
             </li>
@@ -44,9 +42,7 @@
                 <h5>站长推荐</h5>
                 <div>
                     <ul class="list-unstyled blog-title-ul">
-                        <li>这是文章1</li>
-                        <li>Java从入门到放弃</li>
-                        <li>别人的博客</li>
+                        <li *ngFor="let item of infos.recommendBlogs">{{item.title}}</li>
                     </ul>
                 </div>
             </li>
@@ -54,11 +50,7 @@
                 <h5>浏览最多</h5>
                 <div>
                     <ul class="list-unstyled blog-title-ul">
-                        <li>这是文章1</li>
-                        <li>Java从入门到放弃</li>
-                        <li>别人的博客</li>
-                        <li>Java从入门到放弃</li>
-                        <li>别人的博客</li>
+                        <li *ngFor="let item of infos.readBlogs">{{item.title}}</li>
                     </ul>
                 </div>
             </li>
@@ -66,11 +58,7 @@
                 <h5>最近更新</h5>
                 <div>
                     <ul class="list-unstyled blog-title-ul">
-                        <li>这是文章1</li>
-                        <li>Java从入门到放弃Java从入门到放弃Java从入门到放弃Java从入门到放弃Java从入门到放弃</li>
-                        <li>别人的博客</li>
-                        <li>Java从入门到放弃</li>
-                        <li>别人的博客</li>
+                        <li *ngFor="let item of infos.lastBlogs">{{item.title}}</li>
                     </ul>
                 </div>
             </li>
