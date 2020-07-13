@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 import { PlatformLocation } from '@angular/common';
 
 @Component({
@@ -11,7 +11,7 @@ export class NavComponent implements OnInit {
 
   checkNav = 1;
 
-  constructor(private route: ActivatedRoute, private location: PlatformLocation) { }
+  constructor(private router: Router, private location: PlatformLocation) { }
 
   ngOnInit() {
     let uri = '';
@@ -30,10 +30,26 @@ export class NavComponent implements OnInit {
     } else {
       this.checkNav = 1;
     }
+    this.addRouterChangeListen();
   }
 
   activeNav(i) {
     this.checkNav = i;
   }
 
+  addRouterChangeListen() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        if (event.url.indexOf('life') > -1) {
+          this.checkNav = 2;
+        } else if (event.url.indexOf('technique') > -1) {
+          this.checkNav = 3;
+        } else if (event.url.indexOf('me') > -1) {
+          this.checkNav = 4;
+        } else {
+          this.checkNav = 1;
+        }
+      }
+    });
+  }
 }

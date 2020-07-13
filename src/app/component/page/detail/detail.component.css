@@ -1,1 +1,20 @@
-@import "../../../app.component.css"
+@import "../../../app.component.css";
+.modify-info {
+    font-size: 10px;
+    color: #999;
+}
+
+.detail-content {
+    margin: 15px 0;
+    min-height: 300px;
+}
+
+.blog-operation {
+    font-size: 12px;
+}
+
+.blog-operation a:hover {
+    cursor: pointer;
+    text-decoration: none;
+    color: #333;
+}

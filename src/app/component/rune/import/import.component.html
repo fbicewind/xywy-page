@@ -1,0 +1,124 @@
+<div class="custom-cover" *ngIf="saveFlag">保存中，请稍等...</div>
+<div class="tap-div">
+    <nz-tabset>
+        <nz-tab nzTitle="从JSON文件导入符文">
+            <nz-upload nzAction="http://127.0.0.1:8082/rune/importFromJson"
+                [nzHeaders]="{ authorization: 'authorization-text' }" (nzChange)="handleChange($event)">
+                <button nz-button><i nz-icon nzType="upload"></i>选择JSON文件导入</button>
+            </nz-upload>
+        </nz-tab>
+        <nz-tab nzTitle="手动输入符文">
+            <form nz-form class="login-form" (ngSubmit)="submitForm()" style="width: 800px;margin: auto;">
+                <nz-form-item>
+                    <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="runeType">符文</nz-form-label>
+                    <nz-form-control [nzSm]="10" [nzXs]="24">
+                        <nz-select nzPlaceHolder="选择符文类型" [(ngModel)]="info.runeType"
+                            [ngModelOptions]="{standalone: true}">
+                            <nz-option *ngFor="let option of runeTypes" [nzLabel]="option.label"
+                                [nzValue]="option.value">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                    <nz-form-control [nzSm]="10" [nzXs]="24">
+                        <nz-select nzPlaceHolder="选择符文位置" [(ngModel)]="info.position"
+                            [ngModelOptions]="{standalone: true}">
+                            <nz-option *ngFor="let option of runePosition" [nzLabel]="option.label"
+                                [nzValue]="option.value">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="runeType">主属性</nz-form-label>
+                    <nz-form-control [nzSm]="10" [nzXs]="24">
+                        <nz-select nzPlaceHolder="选择主属性" [(ngModel)]="info.mainProperty"
+                            [ngModelOptions]="{standalone: true}">
+                            <nz-option *ngFor="let option of runeProperties" [nzLabel]="option.label"
+                                [nzValue]="option.value">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                    <nz-form-control [nzSm]="10" [nzXs]="24">
+                        <nz-input-number [(ngModel)]="info.mainPropertyValue" [nzMin]="0" [nzStep]="1" nzPlaceHolder="主属性数值" [ngModelOptions]="{standalone: true}" style="width: 100%;"></nz-input-number>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="runeType">前缀属性</nz-form-label>
+                    <nz-form-control [nzSm]="10" [nzXs]="24">
+                        <nz-select nzPlaceHolder="选择前缀属性" [(ngModel)]="info.subProperty"
+                            [ngModelOptions]="{standalone: true}">
+                            <nz-option *ngFor="let option of runeProperties" [nzLabel]="option.label"
+                                [nzValue]="option.value">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                    <nz-form-control [nzSm]="10" [nzXs]="24">
+                        <nz-input-number [(ngModel)]="info.subPropertyValue" [nzMin]="0" [nzStep]="1" nzPlaceHolder="前缀属性数值" [ngModelOptions]="{standalone: true}" style="width: 100%;"></nz-input-number>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="runeType">属性1</nz-form-label>
+                    <nz-form-control [nzSm]="10" [nzXs]="24">
+                        <nz-select nzPlaceHolder="选择属性1" [(ngModel)]="info.firstProperty"
+                            [ngModelOptions]="{standalone: true}">
+                            <nz-option *ngFor="let option of runeProperties" [nzLabel]="option.label"
+                                [nzValue]="option.value">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                    <nz-form-control [nzSm]="10" [nzXs]="24">
+                        <nz-input-number [(ngModel)]="info.firstPropertyValue" [nzMin]="0" [nzStep]="1" nzPlaceHolder="属性1数值" [ngModelOptions]="{standalone: true}" style="width: 100%;"></nz-input-number>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="runeType">属性2</nz-form-label>
+                    <nz-form-control [nzSm]="10" [nzXs]="24">
+                        <nz-select nzPlaceHolder="选择属性2" [(ngModel)]="info.secondProperty"
+                            [ngModelOptions]="{standalone: true}">
+                            <nz-option *ngFor="let option of runeProperties" [nzLabel]="option.label"
+                                [nzValue]="option.value">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                    <nz-form-control [nzSm]="10" [nzXs]="24">
+                        <nz-input-number [(ngModel)]="info.secondPropertyValue" [nzMin]="0" [nzStep]="1" nzPlaceHolder="属性2数值" [ngModelOptions]="{standalone: true}" style="width: 100%;"></nz-input-number>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="runeType">属性3</nz-form-label>
+                    <nz-form-control [nzSm]="10" [nzXs]="24">
+                        <nz-select nzPlaceHolder="选择属性3" [(ngModel)]="info.thirdProperty"
+                            [ngModelOptions]="{standalone: true}">
+                            <nz-option *ngFor="let option of runeProperties" [nzLabel]="option.label"
+                                [nzValue]="option.value">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                    <nz-form-control [nzSm]="10" [nzXs]="24">
+                        <nz-input-number [(ngModel)]="info.thirdPropertyValue" [nzMin]="0" [nzStep]="1" nzPlaceHolder="属性3数值" [ngModelOptions]="{standalone: true}" style="width: 100%;"></nz-input-number>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="runeType">属性4</nz-form-label>
+                    <nz-form-control [nzSm]="10" [nzXs]="24">
+                        <nz-select nzPlaceHolder="选择属性4" [(ngModel)]="info.fourthProperty"
+                            [ngModelOptions]="{standalone: true}">
+                            <nz-option *ngFor="let option of runeProperties" [nzLabel]="option.label"
+                                [nzValue]="option.value">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                    <nz-form-control [nzSm]="10" [nzXs]="24">
+                        <nz-input-number [(ngModel)]="info.fourthPropertyValue" [nzMin]="0" [nzStep]="1" nzPlaceHolder="属性4数值" [ngModelOptions]="{standalone: true}" style="width: 100%;"></nz-input-number>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <div style="text-align: right;">
+                    <button type="button" nz-button nzType="default" style="margin-right: 20px;" (click)="clearForm()">清空</button>
+                    <button nz-button nzType="primary">保存</button>
+                </div>
+                
+            </form>
+        </nz-tab>
+    </nz-tabset>
+</div>

@@ -1,0 +1,60 @@
+ul {
+    list-style: none;
+    padding: 0%;
+}
+
+.ant-list-split .ant-list-item {
+    border-bottom: none;
+}
+
+.fixed-custom-div {
+    float: none;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.ant-input-group.custom-compact {
+    width: unset;
+}
+
+.ant-input-group .ant-input.cutom-compact-input {
+    width: unset;
+}
+
+.check-button {
+    width: 60%;
+    display: block;
+    margin: 10px auto;
+}
+
+.ant-col-10 {
+    width: 41.66666667% !important;
+}
+
+.ant-col-4 {
+    width: 16.66666667% !important;
+}
+
+.ant-col-13 {
+    width: 54.16666667% !important;
+}
+
+.ant-table-row {
+    background-color: #fff !important;
+}
+
+.anticon.anticon-search, .anticon.anticon-save {
+    vertical-align: baseline;
+}
+
+.suit-rune-a {
+    color: #1890ff !important;
+}
+
+.suit-rune-a:first-child {
+    margin-right: 10px;
+}
+
+.text-green{
+    color: #4cc25c;
+}

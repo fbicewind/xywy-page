@@ -1,1 +1,55 @@
-<p>detail works!</p>
+<div class="container main-body">
+    <div nz-col nzSm="17" class="blog-block">
+        <h4>{{blog.title}}</h4>
+        <div class="modify-info">更新于 {{blog.modifyTime | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+        <div class="detail-content">{{blog.content}}</div>
+        <div>
+            <ul class="list-unstyled blog-operation">
+                <li>
+                    <span>上一篇:</span>&nbsp;&nbsp;<a [routerLink]="['/', 'life', 1]">123</a>
+                </li>
+                <li>
+                    <span>下一篇:</span>&nbsp;&nbsp;<a [routerLink]="['/', 'life', 1]">123</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div nz-col nzSm="1"></div>
+    <div nz-col nzSm="6" class="main-right">
+        <ul class="list-unstyled">
+            <li class="blog-block">
+                <h5>博客标签</h5>
+                <div>
+                    <ul class="list-unstyled blog-tags-ul">
+                        <li *ngFor="let item of infos.tags" routerLink="/{{item.blogType}}"
+                            [queryParams]="{tagId: item.id}">{{item.tagName}}</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="blog-block">
+                <h5>站长推荐</h5>
+                <div>
+                    <ul class="list-unstyled blog-title-ul">
+                        <li *ngFor="let item of infos.recommendBlogs" [routerLink]="['/', item.blogType, item.id]">{{item.title}}</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="blog-block">
+                <h5>浏览最多</h5>
+                <div>
+                    <ul class="list-unstyled blog-title-ul">
+                        <li *ngFor="let item of infos.readBlogs" [routerLink]="['/', item.blogType, item.id]">{{item.title}}</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="blog-block">
+                <h5>最近更新</h5>
+                <div>
+                    <ul class="list-unstyled blog-title-ul">
+                        <li *ngFor="let item of infos.lastBlogs" [routerLink]="['/', item.blogType, item.id]">{{item.title}}</li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

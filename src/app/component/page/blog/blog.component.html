@@ -5,13 +5,13 @@
                 <h4>
                     <span class="blog-type">{{blog.blogTag}}</span>
                     <span class="blog-type-arrow"></span>&nbsp;
-                    <span class="blog-title" routerLink="/blog">{{blog.title}}</span>
+                    <span class="blog-title" [routerLink]="['/', blog.blogType, blog.id]">{{blog.title}}</span>
                 </h4>
                 <div class="blog-content">
                     <div nz-col nzSm="6">
                         <img src="{{blog.thumb}}">
                     </div>
-                    <div nz-col nzSm="18" class="blog-content-thumb" routerLink="/blog">
+                    <div nz-col nzSm="18" class="blog-content-thumb" [routerLink]="['/', blog.blogType, blog.id]">
                         <p>{{blog.thumbContent}}</p>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                 <h5>站长推荐</h5>
                 <div>
                     <ul class="list-unstyled blog-title-ul">
-                        <li *ngFor="let item of infos.recommendBlogs">{{item.title}}</li>
+                        <li *ngFor="let item of infos.recommendBlogs" [routerLink]="['/', item.blogType, item.id]">{{item.title}}</li>
                     </ul>
                 </div>
             </li>
@@ -50,7 +50,7 @@
                 <h5>浏览最多</h5>
                 <div>
                     <ul class="list-unstyled blog-title-ul">
-                        <li *ngFor="let item of infos.readBlogs">{{item.title}}</li>
+                        <li *ngFor="let item of infos.readBlogs" [routerLink]="['/', item.blogType, item.id]">{{item.title}}</li>
                     </ul>
                 </div>
             </li>
@@ -58,7 +58,7 @@
                 <h5>最近更新</h5>
                 <div>
                     <ul class="list-unstyled blog-title-ul">
-                        <li *ngFor="let item of infos.lastBlogs">{{item.title}}</li>
+                        <li *ngFor="let item of infos.lastBlogs" [routerLink]="['/', item.blogType, item.id]">{{item.title}}</li>
                     </ul>
                 </div>
             </li>

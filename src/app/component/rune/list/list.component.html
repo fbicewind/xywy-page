@@ -1,0 +1,500 @@
+<div style="background: #ECECEC;padding:30px;">
+    <div nz-row [nzGutter]="8">
+        <div nz-col [nzSpan]="8" class="fixed-custom-div">
+            <nz-card nzTitle="选择魔灵">
+                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="请选择魔灵" [(ngModel)]="info.selectedMonsterId"
+                    style="width: 100%;" (ngModelChange)="selectMonster($event)">
+                    <nz-option *ngFor="let option of monsters" [nzLabel]="option.name" [nzValue]="option.id">
+                    </nz-option>
+                </nz-select>
+                <nz-list>
+                    <nz-list-item nz-col [nzSpan]="12">
+                        <span nz-typography nz-col [nzSpan]="9"><strong>体力</strong></span>
+                        <span nz-col [nzSpan]="12" class="text-right"
+                            *ngIf="selectedMonster.hp">{{selectedMonster.hp}}</span>
+                    </nz-list-item>
+                    <nz-list-item nz-col [nzSpan]="12">
+                        <span nz-typography nz-col [nzSpan]="9"><strong>暴击率</strong></span>
+                        <span nz-col [nzSpan]="12" class="text-right"
+                            *ngIf="selectedMonster.criRate != null">{{selectedMonster.criRate}}</span>
+                    </nz-list-item>
+                    <nz-list-item nz-col [nzSpan]="12">
+                        <span nz-typography nz-col [nzSpan]="9"><strong>攻击力</strong></span>
+                        <span nz-col [nzSpan]="12" class="text-right"
+                            *ngIf="selectedMonster.atk">{{selectedMonster.atk}}</span>
+                    </nz-list-item>
+                    <nz-list-item nz-col [nzSpan]="12">
+                        <span nz-typography nz-col [nzSpan]="9"><strong>暴击伤害</strong></span>
+                        <span nz-col [nzSpan]="12" class="text-right"
+                            *ngIf="selectedMonster.criDmg != null">{{selectedMonster.criDmg}}</span>
+                    </nz-list-item>
+                    <nz-list-item nz-col [nzSpan]="12">
+                        <span nz-typography nz-col [nzSpan]="9"><strong>防御力</strong></span>
+                        <span nz-col [nzSpan]="12" class="text-right"
+                            *ngIf="selectedMonster.def">{{selectedMonster.def}}</span>
+                    </nz-list-item>
+                    <nz-list-item nz-col [nzSpan]="12">
+                        <span nz-typography nz-col [nzSpan]="9"><strong>效果抵抗</strong></span>
+                        <span nz-col [nzSpan]="12" class="text-right"
+                            *ngIf="selectedMonster.resistance != null">{{selectedMonster.resistance}}</span>
+                    </nz-list-item>
+                    <nz-list-item nz-col [nzSpan]="12">
+                        <span nz-typography nz-col [nzSpan]="9"><strong>攻击速度</strong></span>
+                        <span nz-col [nzSpan]="12" class="text-right"
+                            *ngIf="selectedMonster.spd">{{selectedMonster.spd}}</span>
+                    </nz-list-item>
+                    <nz-list-item nz-col [nzSpan]="12">
+                        <span nz-typography nz-col [nzSpan]="9"><strong>效果命中</strong></span>
+                        <span nz-col [nzSpan]="12" class="text-right"
+                            *ngIf="selectedMonster.accuracy != null">{{selectedMonster.accuracy}}</span>
+                    </nz-list-item>
+                </nz-list>
+            </nz-card>
+        </div>
+        <div nz-col [nzSpan]="16" class="fixed-custom-div">
+            <nz-card nzTitle="符文设置">
+                <nz-list>
+                    <nz-list-item nz-col [nzSpan]="12">
+                        <span nz-typography nz-col [nzSpan]="7"><strong>符文类型 1:</strong></span>
+                        <nz-select nz-col [nzSpan]="13" nzShowSearch nzAllowClear nzPlaceHolder="请选择符文类型"
+                            [(ngModel)]="info.firstRuneType">
+                            <nz-option *ngFor="let option of runeTypes" [nzLabel]="option.label"
+                                [nzValue]="option.value">
+                            </nz-option>
+                        </nz-select>
+                    </nz-list-item>
+                    <nz-list-item nz-col [nzSpan]="12">
+                        <span nz-typography nz-col [nzSpan]="7"><strong>2号位属性设置:</strong></span>
+                        <nz-select nz-col [nzSpan]="13" nzShowSearch nzAllowClear nzPlaceHolder="请设置符文属性"
+                            [(ngModel)]="info.secondRuneProperties" nzMode="multiple" [nzMaxTagCount]="2">
+                            <nz-option *ngFor="let option of runeProperties" [nzLabel]="option.label"
+                                [nzValue]="option.value">
+                            </nz-option>
+                        </nz-select>
+                    </nz-list-item>
+                    <nz-list-item nz-col [nzSpan]="12">
+                        <span nz-typography nz-col [nzSpan]="7"><strong>符文类型 2:</strong></span>
+                        <nz-select nz-col [nzSpan]="13" nzShowSearch nzAllowClear nzPlaceHolder="请选择符文类型"
+                            [(ngModel)]="info.secondRuneType">
+                            <nz-option *ngFor="let option of runeTypes" [nzLabel]="option.label"
+                                [nzValue]="option.value">
+                            </nz-option>
+                        </nz-select>
+                    </nz-list-item>
+                    <nz-list-item nz-col [nzSpan]="12">
+                        <span nz-typography nz-col [nzSpan]="7"><strong>4号位属性设置:</strong></span>
+                        <nz-select nz-col [nzSpan]="13" nzShowSearch nzAllowClear nzPlaceHolder="请设置符文属性"
+                            [(ngModel)]="info.fourthRuneProperties" nzMode="multiple" [nzMaxTagCount]="2">
+                            <nz-option *ngFor="let option of runeProperties" [nzLabel]="option.label"
+                                [nzValue]="option.value">
+                            </nz-option>
+                        </nz-select>
+                    </nz-list-item>
+                    <nz-list-item nz-col [nzSpan]="12">
+                        <span nz-typography nz-col [nzSpan]="7"><strong>符文类型 3:</strong></span>
+                        <nz-select nz-col [nzSpan]="13" nzShowSearch nzAllowClear nzPlaceHolder="请选择符文类型"
+                            [(ngModel)]="info.thirdRuneType">
+                            <nz-option *ngFor="let option of runeTypes" [nzLabel]="option.label"
+                                [nzValue]="option.value">
+                            </nz-option>
+                        </nz-select>
+                    </nz-list-item>
+                    <nz-list-item nz-col [nzSpan]="12">
+                        <span nz-typography nz-col [nzSpan]="7"><strong>6号位属性设置:</strong></span>
+                        <nz-select nz-col [nzSpan]="13" nzShowSearch nzAllowClear nzPlaceHolder="请设置符文属性"
+                            [(ngModel)]="info.sixedRuneProperties" nzMode="multiple" [nzMaxTagCount]="2">
+                            <nz-option *ngFor="let option of runeProperties" [nzLabel]="option.label"
+                                [nzValue]="option.value">
+                            </nz-option>
+                        </nz-select>
+                    </nz-list-item>
+                </nz-list>
+            </nz-card>
+        </div>
+        <div nz-col [nzSpan]="8" class="fixed-custom-div">
+            <nz-card nzTitle="关注属性设置">
+                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="请设置符文属性" [(ngModel)]="info.focusProperties"
+                    nzMode="multiple" [nzMaxTagCount]="5" style="width: 100%;">
+                    <nz-option nzLabel="体力" nzValue="hp"></nz-option>
+                    <nz-option nzLabel="攻击力" nzValue="atk"></nz-option>
+                    <nz-option nzLabel="防御力" nzValue="def"></nz-option>
+                    <nz-option nzLabel="攻击速度" nzValue="spd"></nz-option>
+                    <nz-option nzLabel="暴击率" nzValue="criRate"></nz-option>
+                    <nz-option nzLabel="暴击伤害" nzValue="criDmg"></nz-option>
+                    <nz-option nzLabel="效果抵抗" nzValue="resistance"></nz-option>
+                    <nz-option nzLabel="效果命中" nzValue="accuracy"></nz-option>
+                </nz-select>
+            </nz-card>
+        </div>
+        <div nz-col [nzSpan]="16" class="fixed-custom-div">
+            <nz-card nzTitle="符文属性筛选">
+                <nz-list>
+                    <nz-list-item nz-col [nzSpan]="12">
+                        <span nz-typography nz-col [nzSpan]="7"><strong>体力:</strong></span>
+                        <nz-input-group nzCompact nz-col [nzSpan]="13" class="custom-compact">
+                            <input type="number" nz-input placeholder="最小值" [(ngModel)]="info.hpMin" nz-col
+                                [nzSpan]="10" class="cutom-compact-input" />
+                            <input type="text" disabled nz-input placeholder="~" nz-col [nzSpan]="4"
+                                class="cutom-compact-input"
+                                style="width: 30px; border-left: 0px; pointer-events: none; background-color: rgb(255, 255, 255);text-align: center;" />
+                            <input type="number" nz-input placeholder="最大值" [(ngModel)]="info.hpMax" nz-col
+                                [nzSpan]="10" class="cutom-compact-input" style="border-left: none;" />
+                        </nz-input-group>
+                    </nz-list-item>
+                    <nz-list-item nz-col [nzSpan]="12">
+                        <span nz-typography nz-col [nzSpan]="7"><strong>暴击率:</strong></span>
+                        <nz-input-group nzCompact nz-col [nzSpan]="13" class="custom-compact">
+                            <input type="number" nz-input placeholder="最小值" [(ngModel)]="info.criRateMin" nz-col
+                                [nzSpan]="10" class="cutom-compact-input" />
+                            <input type="text" disabled nz-input placeholder="~" nz-col [nzSpan]="4"
+                                class="cutom-compact-input"
+                                style="width: 30px; border-left: 0px; pointer-events: none; background-color: rgb(255, 255, 255);text-align: center;" />
+                            <input type="number" nz-input placeholder="最大值" [(ngModel)]="info.criRateMax" nz-col
+                                [nzSpan]="10" class="cutom-compact-input" style="border-left: none;" />
+                        </nz-input-group>
+                    </nz-list-item>
+                    <nz-list-item nz-col [nzSpan]="12">
+                        <span nz-typography nz-col [nzSpan]="7"><strong>攻击力:</strong></span>
+                        <nz-input-group nzCompact nz-col [nzSpan]="13" class="custom-compact">
+                            <input type="number" nz-input placeholder="最小值" [(ngModel)]="info.atkMin" nz-col
+                                [nzSpan]="10" class="cutom-compact-input" />
+                            <input type="text" disabled nz-input placeholder="~" nz-col [nzSpan]="4"
+                                class="cutom-compact-input"
+                                style="width: 30px; border-left: 0px; pointer-events: none; background-color: rgb(255, 255, 255);text-align: center;" />
+                            <input type="number" nz-input placeholder="最大值" [(ngModel)]="info.atkMax" nz-col
+                                [nzSpan]="10" class="cutom-compact-input" style="border-left: none;" />
+                        </nz-input-group>
+                    </nz-list-item>
+                    <nz-list-item nz-col [nzSpan]="12">
+                        <span nz-typography nz-col [nzSpan]="7"><strong>暴击伤害:</strong></span>
+                        <nz-input-group nzCompact nz-col [nzSpan]="13" class="custom-compact">
+                            <input type="number" nz-input placeholder="最小值" [(ngModel)]="info.criDmgMin" nz-col
+                                [nzSpan]="10" class="cutom-compact-input" />
+                            <input type="text" disabled nz-input placeholder="~" nz-col [nzSpan]="4"
+                                class="cutom-compact-input"
+                                style="width: 30px; border-left: 0px; pointer-events: none; background-color: rgb(255, 255, 255);text-align: center;" />
+                            <input type="number" nz-input placeholder="最大值" [(ngModel)]="info.criDmgMax" nz-col
+                                [nzSpan]="10" class="cutom-compact-input" style="border-left: none;" />
+                        </nz-input-group>
+                    </nz-list-item>
+                    <nz-list-item nz-col [nzSpan]="12">
+                        <span nz-typography nz-col [nzSpan]="7"><strong>防御力:</strong></span>
+                        <nz-input-group nzCompact nz-col [nzSpan]="13" class="custom-compact">
+                            <input type="number" nz-input placeholder="最小值" [(ngModel)]="info.defMin" nz-col
+                                [nzSpan]="10" class="cutom-compact-input" />
+                            <input type="text" disabled nz-input placeholder="~" nz-col [nzSpan]="4"
+                                class="cutom-compact-input"
+                                style="width: 30px; border-left: 0px; pointer-events: none; background-color: rgb(255, 255, 255);text-align: center;" />
+                            <input type="number" nz-input placeholder="最大值" [(ngModel)]="info.defMax" nz-col
+                                [nzSpan]="10" class="cutom-compact-input" style="border-left: none;" />
+                        </nz-input-group>
+                    </nz-list-item>
+                    <nz-list-item nz-col [nzSpan]="12">
+                        <span nz-typography nz-col [nzSpan]="7"><strong>效果抵抗:</strong></span>
+                        <nz-input-group nzCompact nz-col [nzSpan]="13" class="custom-compact">
+                            <input type="number" nz-input placeholder="最小值" [(ngModel)]="info.resistanceMin" nz-col
+                                [nzSpan]="10" class="cutom-compact-input" />
+                            <input type="text" disabled nz-input placeholder="~" nz-col [nzSpan]="4"
+                                class="cutom-compact-input"
+                                style="width: 30px; border-left: 0px; pointer-events: none; background-color: rgb(255, 255, 255);text-align: center;" />
+                            <input type="number" nz-input placeholder="最大值" [(ngModel)]="info.resistanceMax" nz-col
+                                [nzSpan]="10" class="cutom-compact-input" style="border-left: none;" />
+                        </nz-input-group>
+                    </nz-list-item>
+                    <nz-list-item nz-col [nzSpan]="12">
+                        <span nz-typography nz-col [nzSpan]="7"><strong>攻击速度:</strong></span>
+                        <nz-input-group nzCompact nz-col [nzSpan]="13" class="custom-compact">
+                            <input type="number" nz-input placeholder="最小值" [(ngModel)]="info.spdMin" nz-col
+                                [nzSpan]="10" class="cutom-compact-input" />
+                            <input type="text" disabled nz-input placeholder="~" nz-col [nzSpan]="4"
+                                class="cutom-compact-input"
+                                style="width: 30px; border-left: 0px; pointer-events: none; background-color: rgb(255, 255, 255);text-align: center;" />
+                            <input type="number" nz-input placeholder="最大值" [(ngModel)]="info.spdMax" nz-col
+                                [nzSpan]="10" class="cutom-compact-input" style="border-left: none;" />
+                        </nz-input-group>
+                    </nz-list-item>
+                    <nz-list-item nz-col [nzSpan]="12">
+                        <span nz-typography nz-col [nzSpan]="7"><strong>效果命中:</strong></span>
+                        <nz-input-group nzCompact nz-col [nzSpan]="13" class="custom-compact">
+                            <input type="number" nz-input placeholder="最小值" [(ngModel)]="info.accuracyMin" nz-col
+                                [nzSpan]="10" class="cutom-compact-input" />
+                            <input type="text" disabled nz-input placeholder="~" nz-col [nzSpan]="4"
+                                class="cutom-compact-input"
+                                style="border-left: 0px; pointer-events: none; background-color: rgb(255, 255, 255);text-align: center;" />
+                            <input type="number" nz-input placeholder="最大值" [(ngModel)]="info.accuracyMax" nz-col
+                                [nzSpan]="10" class="cutom-compact-input" style="border-left: none;" />
+                        </nz-input-group>
+                    </nz-list-item>
+                </nz-list>
+            </nz-card>
+        </div>
+        <button nz-button nzType="primary" (click)="doFilter()" [nzSize]="large" [nzLoading]="isLoading"
+            class="check-button">匹 配 符 文</button>
+        <nz-table #basicTable [nzData]="resultData" nzTableLayout="fixed" [nzShowPagination]="false">
+            <thead>
+                <tr>
+                    <th>体力</th>
+                    <th>攻击力</th>
+                    <th>防御力</th>
+                    <th>攻击速度</th>
+                    <th>暴击率</th>
+                    <th>暴击伤害</th>
+                    <th>效果抵抗</th>
+                    <th>效果命中</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of resultData">
+                    <td>{{ data.hp }}</td>
+                    <td>{{ data.atk }}</td>
+                    <td>{{ data.def }}</td>
+                    <td>{{ data.spd }}</td>
+                    <td>{{ data.criRate }}</td>
+                    <td>{{ data.criDmg }}</td>
+                    <td>{{ data.resistance }}</td>
+                    <td>{{ data.accuracy }}</td>
+                    <td>
+                        <a (click)="viewDetail(data)" class="suit-rune-a"><i nz-icon nzType="search"
+                                nzTheme="outline"></i>查看详情</a>
+                        <a (click)="suitRune(data)" class="suit-rune-a"><i nz-icon nzType="save"
+                                nzTheme="outline"></i>使用该符文</a>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</div>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="详情" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" nzWidth="800">
+    <div nz-row [nzGutter]="8">
+        <div nz-col [nzSpan]="12" class="fixed-custom-div">
+            <nz-card [nzTitle]="detailData.monster.name">
+                <nz-list>
+                    <nz-list-item>
+                        <span nz-typography nz-col [nzSpan]="10"><strong>体力</strong></span>
+                        <span nz-col [nzSpan]="12">{{detailData.monster.hp}} + <span
+                                class="text-green">{{detailData.hp}}</span></span>
+                    </nz-list-item>
+                    <nz-list-item>
+                        <span nz-typography nz-col [nzSpan]="10"><strong>攻击力</strong></span>
+                        <span nz-col [nzSpan]="12">{{detailData.monster.atk}} + <span
+                                class="text-green">{{detailData.atk}}</span></span>
+                    </nz-list-item>
+                    <nz-list-item>
+                        <span nz-typography nz-col [nzSpan]="10"><strong>防御力</strong></span>
+                        <span nz-col [nzSpan]="12">{{detailData.monster.def}} + <span
+                                class="text-green">{{detailData.def}}</span></span>
+                    </nz-list-item>
+                    <nz-list-item>
+                        <span nz-typography nz-col [nzSpan]="10"><strong>攻击速度</strong></span>
+                        <span nz-col [nzSpan]="12">{{detailData.monster.spd}} + <span
+                                class="text-green">{{detailData.spd}}</span></span>
+                    </nz-list-item>
+                    <nz-list-item>
+                        <span nz-typography nz-col [nzSpan]="10"><strong>暴击率</strong></span>
+                        <span nz-col [nzSpan]="12">{{detailData.monster.criRate}} + <span
+                                class="text-green">{{detailData.criRate}}</span></span>
+                    </nz-list-item>
+                    <nz-list-item>
+                        <span nz-typography nz-col [nzSpan]="10"><strong>暴击伤害</strong></span>
+                        <span nz-col [nzSpan]="12">{{detailData.monster.criDmg}} + <span
+                                class="text-green">{{detailData.criDmg}}</span></span>
+                    </nz-list-item>
+                    <nz-list-item>
+                        <span nz-typography nz-col [nzSpan]="10"><strong>效果抵抗</strong></span>
+                        <span nz-col [nzSpan]="12">{{detailData.monster.resistance}} + <span
+                                class="text-green">{{detailData.resistance}}</span></span>
+                    </nz-list-item>
+                    <nz-list-item>
+                        <span nz-typography nz-col [nzSpan]="10"><strong>效果命中</strong></span>
+                        <span nz-col [nzSpan]="12">{{detailData.monster.accuracy}} + <span
+                                class="text-green">{{detailData.accuracy}}</span></span>
+                    </nz-list-item>
+                </nz-list>
+            </nz-card>
+        </div>
+        <div nz-col [nzSpan]="12" class="fixed-custom-div">
+            <nz-card nzTitle="符文详情">
+                <nz-tabset nzTabPosition="left">
+                    <nz-tab nzTitle="1号位">
+                        <nz-list>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20"><strong>{{detailData.rune1.runeTypeCn}}符文(1)</strong></span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune1.mainPropertyCn}}</span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune1.subPropertyCn}}</span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune1.firstPropertyCn}}</span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune1.secondPropertyCn}}</span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune1.thirdPropertyCn}}</span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune1.fourthPropertyCn}}</span>
+                            </nz-list-item>
+                        </nz-list>
+                    </nz-tab>
+                    <nz-tab nzTitle="2号位">
+                        <nz-list>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20"><strong>{{detailData.rune2.runeTypeCn}}符文(2)</strong></span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune2.mainPropertyCn}}</span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune2.subPropertyCn}}</span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune2.firstPropertyCn}}</span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune2.secondPropertyCn}}</span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune2.thirdPropertyCn}}</span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune2.fourthPropertyCn}}</span>
+                            </nz-list-item>
+                        </nz-list>
+                    </nz-tab>
+                    <nz-tab nzTitle="3号位">
+                        <nz-list>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20"><strong>{{detailData.rune3.runeTypeCn}}符文(3)</strong></span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune3.mainPropertyCn}}</span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune3.subPropertyCn}}</span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune3.firstPropertyCn}}</span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune3.secondPropertyCn}}</span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune3.thirdPropertyCn}}</span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune3.fourthPropertyCn}}</span>
+                            </nz-list-item>
+                        </nz-list>
+                    </nz-tab>
+                    <nz-tab nzTitle="4号位">
+                        <nz-list>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20"><strong>{{detailData.rune4.runeTypeCn}}符文(4)</strong></span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune4.mainPropertyCn}}</span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune4.subPropertyCn}}</span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune4.firstPropertyCn}}</span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune4.secondPropertyCn}}</span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune4.thirdPropertyCn}}</span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune4.fourthPropertyCn}}</span>
+                            </nz-list-item>
+                        </nz-list>
+                    </nz-tab>
+                    <nz-tab nzTitle="5号位">
+                        <nz-list>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20"><strong>{{detailData.rune5.runeTypeCn}}符文(5)</strong></span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune5.mainPropertyCn}}</span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune5.subPropertyCn}}</span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune5.firstPropertyCn}}</span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune5.secondPropertyCn}}</span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune5.thirdPropertyCn}}</span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune5.fourthPropertyCn}}</span>
+                            </nz-list-item>
+                        </nz-list>
+                    </nz-tab>
+                    <nz-tab nzTitle="6号位">
+                        <nz-list>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20"><strong>{{detailData.rune6.runeTypeCn}}符文(6)</strong></span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune6.mainPropertyCn}}</span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune6.subPropertyCn}}</span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune6.firstPropertyCn}}</span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune6.secondPropertyCn}}</span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune6.thirdPropertyCn}}</span>
+                            </nz-list-item>
+                            <nz-list-item>
+                                <span nz-typography nz-col [nzSpan]="20">{{detailData.rune6.fourthPropertyCn}}</span>
+                            </nz-list-item>
+                        </nz-list>
+                    </nz-tab>
+                </nz-tabset>
+            </nz-card>
+        </div>
+    </div>
+    <!-- <nz-table #basicTable [nzData]="detailData" nzTableLayout="fixed" [nzShowPagination]="false">
+        <thead>
+            <tr>
+                <th>位置</th>
+                <th>类型</th>
+                <th>主属性</th>
+                <th>前缀属性</th>
+                <th>属性1</th>
+                <th>属性2</th>
+                <th>属性3</th>
+                <th>属性4</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of detailData">
+                <td>{{ data.position }}号位</td>
+                <td>{{ data.runeTypeCn }}</td>
+                <td>{{ data.mainPropertyCn }}</td>
+                <td>{{ data.subPropertyCn }}</td>
+                <td>{{ data.firstPropertyCn }}</td>
+                <td>{{ data.secondPropertyCn }}</td>
+                <td>{{ data.thirdPropertyCn }}</td>
+                <td>{{ data.fourthPropertyCn }}</td>
+            </tr>
+        </tbody>
+    </nz-table> -->
+</nz-modal>

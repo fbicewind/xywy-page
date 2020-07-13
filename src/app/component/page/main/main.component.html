@@ -5,13 +5,13 @@
                 <h4>
                     <span class="blog-type">{{blog.blogTag}}</span>
                     <span class="blog-type-arrow"></span>&nbsp;
-                    <span class="blog-title" routerLink="/blog">{{blog.title}}</span>
+                    <span class="blog-title" [routerLink]="['/', blog.blogType, blog.id]">{{blog.title}}</span>
                 </h4>
                 <div class="blog-content">
                     <div nz-col nzSm="6">
                         <img src="{{blog.thumb}}">
                     </div>
-                    <div nz-col nzSm="18" class="blog-content-thumb" routerLink="/blog">
+                    <div nz-col nzSm="18" class="blog-content-thumb" [routerLink]="['/', blog.blogType, blog.id]">
                         <p>{{blog.thumbContent}}</p>
                     </div>
                 </div>
@@ -29,7 +29,8 @@
                 <h5>博客标签</h5>
                 <div>
                     <ul class="list-unstyled blog-tags-ul">
-                        <li *ngFor="let item of infos.tags" routerLink="/{{item.blogType}}" [queryParams]="{tagId: item.id}">{{item.tagName}}</li>
+                        <li *ngFor="let item of infos.tags" routerLink="/{{item.blogType}}"
+                            [queryParams]="{tagId: item.id}">{{item.tagName}}</li>
                     </ul>
                 </div>
             </li>
